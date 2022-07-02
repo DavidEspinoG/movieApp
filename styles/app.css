@@ -2,6 +2,7 @@
     --grey: #3D3E44;
     --dark-grey :#161616 ;
     --white: #fff;
+    --dark-orange: #A84E27;
 }
 * {
     box-sizing: border-box;
@@ -42,7 +43,7 @@ h1 {
 h2 {
     font-size:4rem ;
 }
-.main-container__trending {
+.secondary-container {
     margin: 2rem 7rem;
 }
 .trending__imgs {
@@ -56,5 +57,18 @@ h2 {
     width: 30rem;
     height: 30rem;
     margin-right: 2rem;
+    border-radius: 1rem;
+}
+.category-container {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+.category {
+    background-color: var(--dark-orange);
+    display: inline-block;
+    font-size: 2.7rem;
+    margin: 2rem;
+    text-align: center;
+    padding: 3rem;
     border-radius: 1rem;
 }
