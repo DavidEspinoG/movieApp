@@ -46,7 +46,15 @@ h2 {
     margin: 2rem 7rem;
 }
 .trending__imgs {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 3rem;
+    gap: 3rem;   */
+    display: flex;
+    overflow-x: auto;
+}
+.trending__imgs img {
+    width: 30rem;
+    height: 30rem;
+    margin-right: 2rem;
+    border-radius: 1rem;
 }
