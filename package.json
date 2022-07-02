@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/DavidEspinoG/movieApp/issues"
   },
-  "homepage": "https://github.com/DavidEspinoG/movieApp#readme"
+  "homepage": "https://github.com/DavidEspinoG/movieApp#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
