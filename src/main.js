@@ -24,7 +24,6 @@ async function getCategoriesPreview(){
     const {data} = await api('genre/movie/list');
     const categories = data.genres
     categories.forEach(category => {
-        console.log(category)
         const categoryContainer = document.getElementById('category-container')
         const categoryElement = document.createElement('div')
         categoryElement.classList.add('category')
@@ -33,5 +32,3 @@ async function getCategoriesPreview(){
         categoryContainer.appendChild(categoryElement)
     })
 }
-getTrendingMoviesPreview()
-getCategoriesPreview()
