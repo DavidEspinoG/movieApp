@@ -2,7 +2,7 @@ window.addEventListener('DOMContentLoaded', navigator, false)
 window.addEventListener('hashchange', navigator, false)
 
 function navigator(){
-    console.log({location});
+    // console.log({location});
 
     if(location.hash.startsWith('#trends')) {
         trendsPage()
