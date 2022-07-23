@@ -20,6 +20,7 @@ body {
 img {
     max-width: 100%;
 }
+
 .blur {
     filter: blur(1rem);
     position: static;
@@ -92,7 +93,30 @@ h2 {
     background-color: var(--dark-orange);
     padding: 2rem;
     width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    border-radius: 1rem;
 }
 .movie-details-container p {
     font-size: 2rem;
+}
+.display-none {
+    display: none;
+}
+.contenedor-cerrar {
+    text-align: center;
+    margin-top: 10rem;
+}
+.btn-cerrar {
+    background-color: rgba(255, 255, 255, .3);
+    border: none;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+}
+.flex-btn-cerrar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
