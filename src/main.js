@@ -83,7 +83,6 @@ async function getMovieDetails(id, poster_path, title, overview){
     const textButton = document.createTextNode('X')
     botonCerrar.appendChild(textButton)
     cerrarDiv.appendChild(botonCerrar)
-
     addListener()
 }
 // Cerrar movie details
@@ -117,7 +116,6 @@ async function getCategoryMovies(id, categoryTitle){
         }, 1500)
     } 
     if (!categoryMovies){
-        console.log('hacer scroll')
         setTimeout(()=> {
             window.scrollTo({top: 1200, behavior: "smooth"})
         },100) 
@@ -143,6 +141,8 @@ async function getCategoryMovies(id, categoryTitle){
         const htmlImg = document.createElement('img')
         htmlImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
         categoryMoviesContainer.appendChild(htmlImg)
-        
+        htmlImg.addEventListener('click', () => {
+            getMovieDetails(movie.id, movie.poster_path, movie.title, movie.overview)
+        }, false)
     })
 }
