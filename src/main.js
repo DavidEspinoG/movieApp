@@ -15,7 +15,6 @@ async function getTrendingMoviesPreview(){
     const res = await fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=' + API_KEY);
     const data = await res.json()
     const movies = data.results
-    console.log(movies)
     movies.forEach(movie => {
         const trendingContainerImg = document.getElementById('trending__imgs_container')
         const apiImage = document.createElement('img')
@@ -147,3 +146,16 @@ async function getCategoryMovies(id, categoryTitle){
         }, false)
     })
 }
+const searchButton = document.getElementById('search-button')
+searchButton.addEventListener('click', searchMovies, false)
+const searchInput = document.getElementById('search-input')
+searchInput.addEventListener('keydown', (e) =>{ 
+    if(e.code == 'Enter'){
+        e.preventDefault()
+        searchMovies()
+    }
+})
+function searchMovies(){
+    console.log(searchInput.value)
+}
+
