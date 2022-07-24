@@ -1,9 +1,3 @@
-
-document.addEventListener('DOMContentLoaded', function(){
-    window.onresize = function(){
-        console.log(window.innerHeight)
-    }
-})
 const api = axios.create({
     baseURL: 'https://api.themoviedb.org/3/',
     headers: {
@@ -42,6 +36,9 @@ async function getCategoriesPreview(){
         const title = document.createTextNode(category.name)
         categoryElement.appendChild(title)
         categoryContainer.appendChild(categoryElement)
+        categoryElement.addEventListener('click', () => {
+            getCategoryMovies(category.id, category.name)
+        })
     })
 }
 // Obtener movie details
@@ -110,3 +107,37 @@ function closeDetails() {
     blur.classList.remove('blur')
 }
 addListener()
+async function getCategoryMovies(id, categoryTitle){
+    const categoryMovies = document.getElementById('categoryMovies')
+    if(categoryMovies){
+        $('#categoryMovies').hide(1000)
+        setTimeout(() => {
+            const mainContainer = document.getElementById('main-container')
+            mainContainer.removeChild(categoryMovies)
+        }, 1000)
+    } 
+    const res = await fetch(BASE_URL + 'discover/movie?with_genres=' + id +'&api_key=' + API_KEY)
+    const data = await res.json()
+    const movies = data.results
+    console.log(movies)
+    const mainContainer = document.getElementById('main-container')
+    const section = document.createElement('div')
+    section.classList.add('main-container__trending', 'secondary-container')
+    section.id = 'categoryMovies'
+    mainContainer.appendChild(section)
+    const htmlTitle = document.createElement('h2')
+    const textTitle = document.createTextNode(categoryTitle)
+    htmlTitle.appendChild(textTitle)
+    section.appendChild(htmlTitle)
+    // Creando el contenedor de las imágenes de las películas
+    const categoryMoviesContainer = document.createElement('div')
+    categoryMoviesContainer.classList.add('trending__imgs')
+    categoryMoviesContainer.id = 'categoryMoviesContainer'
+    section.appendChild(categoryMoviesContainer)
+    movies.forEach(movie => {
+        const htmlImg = document.createElement('img')
+        htmlImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
+        categoryMoviesContainer.appendChild(htmlImg)
+        
+    })
+}
