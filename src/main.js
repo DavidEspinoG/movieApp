@@ -114,12 +114,17 @@ async function getCategoryMovies(id, categoryTitle){
         setTimeout(() => {
             const mainContainer = document.getElementById('main-container')
             mainContainer.removeChild(categoryMovies)
-        }, 1000)
+        }, 1500)
     } 
+    if (!categoryMovies){
+        console.log('hacer scroll')
+        setTimeout(()=> {
+            window.scrollTo({top: 1200, behavior: "smooth"})
+        },100) 
+    }
     const res = await fetch(BASE_URL + 'discover/movie?with_genres=' + id +'&api_key=' + API_KEY)
     const data = await res.json()
     const movies = data.results
-    console.log(movies)
     const mainContainer = document.getElementById('main-container')
     const section = document.createElement('div')
     section.classList.add('main-container__trending', 'secondary-container')
