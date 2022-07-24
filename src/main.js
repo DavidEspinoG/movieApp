@@ -147,15 +147,20 @@ async function getCategoryMovies(id, categoryTitle){
     })
 }
 const searchButton = document.getElementById('search-button')
-searchButton.addEventListener('click', searchMovies, false)
+searchButton.addEventListener('click', () => {
+    searchMovies(searchInput.value)
+}, false)
 const searchInput = document.getElementById('search-input')
 searchInput.addEventListener('keydown', (e) =>{ 
     if(e.code == 'Enter'){
         e.preventDefault()
-        searchMovies()
+        searchMovies(searchInput.value)
     }
 })
-function searchMovies(){
-    console.log(searchInput.value)
+//
+async function searchMovies(query){
+    const res = await fetch(BASE_URL + 'search/movie?api_key=' + API_KEY + '&query=' + query + '&page=1')
+    const data = await res.json()
+    console.log(data)
 }
 
