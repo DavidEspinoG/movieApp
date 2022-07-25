@@ -141,3 +141,6 @@ h2 {
     flex: 20%;
     /* width: 10rem; */
 }
+.search-results {
+    margin-top: 2rem;
+}

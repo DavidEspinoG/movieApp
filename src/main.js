@@ -157,10 +157,12 @@ searchInput.addEventListener('keydown', (e) =>{
         searchMovies(searchInput.value)
     }
 })
-//
+
 async function searchMovies(query){
     const res = await fetch(BASE_URL + 'search/movie?api_key=' + API_KEY + '&query=' + query + '&page=1')
     const data = await res.json()
-    console.log(data)
+    const movies = data.results
+   
 }
+
 
