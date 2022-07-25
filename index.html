@@ -12,11 +12,11 @@
 </head>
 <body>
     <div id="blur" class="">
-        <div id="main-container" class="main-container">
+        <main id="main-container" class="main-container">
             <div class="title-container">
                 <h1 id="title-container__title">movieApp</h1>
             </div>
-            <div class="secondary-container">
+            <section class="secondary-container">
                 <h2>Search</h2>
                 <form class="search-form">
                     <div class="flex-form">
@@ -24,22 +24,21 @@
                         <button id="search-button" type="button">Search</button>
                     </div>
                 </form>
-            </div>
-            <section class="main-container__trending secondary-container">
+            </section>
+            <section id="reference" class="secondary-container">
                 <h2>Trending</h2>
-                <div id="trending__imgs_container" class="trending__imgs">
+                <div id="trending__imgs_container" class="image-container">
                 </div>
             </section>
-            <section class="main-container__categories secondary-container">
+            <section class="secondary-container">
                 <h2>Categories</h2>
                 <div id="category-container" class="category-container">
                 </div>
             </section> 
-        </div>    
+        </main>    
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/jQuery.js"></script>
-    <script src="./src/secrets.js"></script>
     <script src="./src/main.js"></script>
 </body>
 </html>

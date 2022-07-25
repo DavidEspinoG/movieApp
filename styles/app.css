@@ -56,11 +56,11 @@ h2 {
 .secondary-container {
     margin: 2rem 7rem;
 }
-.trending__imgs {
+.image-container {
     display: flex;
     overflow-x: auto;
 }
-.trending__imgs img {
+.image-container img {
     width: 30rem;
     height: 30rem;
     margin-right: 2rem;

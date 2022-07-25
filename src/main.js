@@ -1,3 +1,5 @@
+API_KEY = 'bdaaaa2b20c386f0be9d20b50bd8dbe3'
+const BASE_URL = 'https://api.themoviedb.org/3/'
 const api = axios.create({
     baseURL: 'https://api.themoviedb.org/3/',
     headers: {
@@ -8,13 +10,13 @@ const api = axios.create({
     }
 });
 
-const BASE_URL = 'https://api.themoviedb.org/3/'
 // Fetch nativo
 async function getTrendingMoviesPreview(){
     // Obtiene la información general de la película
     const res = await fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=' + API_KEY);
     const data = await res.json()
     const movies = data.results
+    console.log(movies)
     movies.forEach(movie => {
         const trendingContainerImg = document.getElementById('trending__imgs_container')
         const apiImage = document.createElement('img')
@@ -25,6 +27,7 @@ async function getTrendingMoviesPreview(){
         }
     })
 }
+getTrendingMoviesPreview()
 // Fetch con axios
 async function getCategoriesPreview(){
     const {data} = await api('genre/movie/list');
@@ -41,6 +44,7 @@ async function getCategoriesPreview(){
         })
     })
 }
+getCategoriesPreview()
 // Obtener movie details
 async function getMovieDetails(id, poster_path, title, overview){
     // Consulta a db
@@ -124,17 +128,19 @@ async function getCategoryMovies(id, categoryTitle){
     const data = await res.json()
     const movies = data.results
     const mainContainer = document.getElementById('main-container')
-    const section = document.createElement('div')
-    section.classList.add('main-container__trending', 'secondary-container')
+    const section = document.createElement('section')
+    section.classList.add('secondary-container')
     section.id = 'categoryMovies'
     mainContainer.appendChild(section)
+    // const imgContainer = document.createElement('div')
+    // imgContainer.classList.add('img-container')
     const htmlTitle = document.createElement('h2')
     const textTitle = document.createTextNode(categoryTitle)
     htmlTitle.appendChild(textTitle)
     section.appendChild(htmlTitle)
     // Creando el contenedor de las imágenes de las películas
     const categoryMoviesContainer = document.createElement('div')
-    categoryMoviesContainer.classList.add('trending__imgs')
+    categoryMoviesContainer.classList.add('image-container')
     categoryMoviesContainer.id = 'categoryMoviesContainer'
     section.appendChild(categoryMoviesContainer)
     movies.forEach(movie => {
@@ -146,6 +152,7 @@ async function getCategoryMovies(id, categoryTitle){
         }, false)
     })
 }
+// Buscador 
 const searchButton = document.getElementById('search-button')
 searchButton.addEventListener('click', () => {
     searchMovies(searchInput.value)
@@ -162,7 +169,31 @@ async function searchMovies(query){
     const res = await fetch(BASE_URL + 'search/movie?api_key=' + API_KEY + '&query=' + query + '&page=1')
     const data = await res.json()
     const movies = data.results
-   
+    const mainContainer = document.getElementById('main-container')
+    const sectionDelete = document.getElementById('search-result')
+    if(sectionDelete){
+        $('#search-result').hide(1000)
+        setTimeout(() => {
+            const rmSection = document.getElementById('search-result')
+            mainContainer.removeChild(rmSection)
+        }, 1500)
+        
+        
+    }
+    const section = document.createElement('section')
+    section.classList.add('secondary-container')
+    section.id = 'search-result'
+    const reference = document.getElementById('reference')
+    mainContainer.insertBefore(section, reference)
+    const imgContainer = document.createElement('div')
+    imgContainer.classList.add('image-container')
+    section.appendChild(imgContainer)
+    
+    movies.forEach(movie => {
+        const img = document.createElement('img')
+        img.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
+        imgContainer.appendChild(img)
+    })
 }
 
 
