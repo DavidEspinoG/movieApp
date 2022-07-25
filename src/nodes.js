@@ -1,1 +1,0 @@
-const blur = document.getElementById('blur')
