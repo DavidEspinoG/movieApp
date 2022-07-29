@@ -192,7 +192,10 @@ async function searchMovies(query){
     movies.forEach(movie => {
         const img = document.createElement('img')
         img.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
-        imgContainer.appendChild(img)
+        imgContainer.appendChild(img);
+        img.addEventListener('click', () => {
+            getMovieDetails(movie.id, movie.poster_path, movie.title, movie.overview)
+        }, false)
     })
 }
 
