@@ -105,6 +105,3 @@ dist
 
 # Api key
 src/secrets.js
-
-# img
-**/img
