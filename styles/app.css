@@ -116,6 +116,7 @@ h2 {
 .category-container {
     white-space: nowrap;
     overflow-x: auto;
+    
 }
 .category {
     background-color: var(--dark-orange);
@@ -123,9 +124,24 @@ h2 {
     font-size: 2.7rem;
     margin: 2rem;
     text-align: center;
+    
     padding: 3rem;
     border-radius: 1rem;
 }
+.loading-category {
+    background-color: var(--grey);
+    display: inline-block;
+    font-size: 2.7rem;
+    width: 195px;
+    height: 94px;
+    margin: 2rem;
+    text-align: center;
+    padding: 3rem;
+    border-radius: 1rem;
+    animation: loading-skeleton infinite 1.5s;
+    color: rgba(0, 0, 0, 0);
+}
+
 @media(max-width: 600px){
     .category {
         font-size: 2rem;

@@ -32,8 +32,9 @@ getTrendingMoviesPreview()
 async function getCategoriesPreview(){
     const {data} = await api('genre/movie/list');
     const categories = data.genres
+    const categoryContainer = document.getElementById('category-container')
+    categoryContainer.innerHTML = '';
     categories.forEach(category => {
-        const categoryContainer = document.getElementById('category-container')
         const categoryElement = document.createElement('div')
         categoryElement.classList.add('category')
         const title = document.createTextNode(category.name)
