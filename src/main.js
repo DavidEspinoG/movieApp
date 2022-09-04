@@ -9,7 +9,15 @@ const api = axios.create({
         'api_key': API_KEY,
     }
 });
-
+const lazyLoader = new IntersectionObserver((entries) =>{
+    entries.forEach((entry) => {
+        if(entry.isIntersecting){
+            const url = entry.target.getAttribute('data-img');
+            entry.target.setAttribute('src', url);
+        }
+        
+    })
+});
 // Fetch nativo
 async function getTrendingMoviesPreview(){
     // Obtiene la información general de la película
@@ -20,11 +28,17 @@ async function getTrendingMoviesPreview(){
     trendingContainerImg.innerHTML = '';
         movies.forEach(movie => {
         const apiImage = document.createElement('img')
-        apiImage.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
+        apiImage.setAttribute('data-img', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
+        // apiImage.setAttribute('loading', 'lazy');
         trendingContainerImg.appendChild(apiImage)
+        lazyLoader.observe(apiImage)
+        apiImage.addEventListener('error', () =>{
+            apiImage.setAttribute('src', '../img/404.jpg')
+        })
         apiImage.onclick = function() {
             getMovieDetails(movie.id, movie.poster_path, movie.title, movie.overview)
         }
+
     })
 }
 getTrendingMoviesPreview()
@@ -146,6 +160,7 @@ async function getCategoryMovies(id, categoryTitle){
     section.appendChild(categoryMoviesContainer)
     movies.forEach(movie => {
         const htmlImg = document.createElement('img')
+        htmlImg.setAttribute('loading', 'lazy');
         htmlImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
         categoryMoviesContainer.appendChild(htmlImg)
         htmlImg.addEventListener('click', () => {
@@ -189,11 +204,14 @@ async function searchMovies(query){
     const imgContainer = document.createElement('div')
     imgContainer.classList.add('image-container')
     section.appendChild(imgContainer)
-    
     movies.forEach(movie => {
         const img = document.createElement('img')
         img.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
         imgContainer.appendChild(img);
+        img.setAttribute('loading', 'lazy')
+        img.addEventListener('error', () =>{
+            img.setAttribute('src', '../img/404.jpg')
+        })
         img.addEventListener('click', () => {
             getMovieDetails(movie.id, movie.poster_path, movie.title, movie.overview)
         }, false)
