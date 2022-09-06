@@ -9,6 +9,26 @@ const api = axios.create({
         'api_key': API_KEY,
     }
 });
+// Utils
+function likedMoviesList() {
+    const item = JSON.parse(localStorage.getItem('liked_movies'))
+    let movies;
+    if (item) {
+        movies = item
+    } else {
+        movies = {}
+    }
+    return movies
+}
+function likeMovie(movie) {
+    const likedMovies = likedMoviesList()
+    if (likedMovies[movie.id]) {
+        likedMovies[movie.id] = undefined
+    } else {
+        likedMovies[movie.id] = movie
+    }
+    localStorage.setItem('liked_movies', JSON.stringify(likedMovies))
+}
 const lazyLoader = new IntersectionObserver((entries) =>{
     entries.forEach((entry) => {
         if(entry.isIntersecting){
@@ -18,6 +38,7 @@ const lazyLoader = new IntersectionObserver((entries) =>{
         
     })
 });
+
 // Fetch nativo
 async function getTrendingMoviesPreview(){
     // Obtiene la información general de la película
@@ -27,10 +48,20 @@ async function getTrendingMoviesPreview(){
     const trendingContainerImg = document.getElementById('trending__imgs_container')
     trendingContainerImg.innerHTML = '';
         movies.forEach(movie => {
+        const movieContainer = document.createElement('div');
+        movieContainer.classList.add('movie-img-container');
+        trendingContainerImg.appendChild(movieContainer);
         const apiImage = document.createElement('img')
+        const movieBtn = document.createElement('button');
+        movieBtn.classList.add('btnLike');
+        movieBtn.addEventListener('click', () => {
+            movieBtn.classList.toggle('btnLiked');
+            likeMovie(movie); 
+        });
+        movieContainer.appendChild(apiImage)
+        movieContainer.appendChild(movieBtn)
         apiImage.setAttribute('data-img', 'https://image.tmdb.org/t/p/w300' + movie.poster_path)
         // apiImage.setAttribute('loading', 'lazy');
-        trendingContainerImg.appendChild(apiImage)
         lazyLoader.observe(apiImage)
         apiImage.addEventListener('error', () =>{
             apiImage.setAttribute('src', '../img/404.jpg')
@@ -217,5 +248,4 @@ async function searchMovies(query){
         }, false)
     })
 }
-
 
