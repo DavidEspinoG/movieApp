@@ -22,12 +22,14 @@ function likedMoviesList() {
 }
 function likeMovie(movie) {
     const likedMovies = likedMoviesList()
+    
     if (likedMovies[movie.id]) {
         likedMovies[movie.id] = undefined
     } else {
         likedMovies[movie.id] = movie
     }
     localStorage.setItem('liked_movies', JSON.stringify(likedMovies))
+    getLikedMovies()
 }
 const lazyLoader = new IntersectionObserver((entries) =>{
     entries.forEach((entry) => {
@@ -47,6 +49,8 @@ async function getTrendingMoviesPreview(){
     const movies = data.results
     const trendingContainerImg = document.getElementById('trending__imgs_container')
     trendingContainerImg.innerHTML = '';
+    const local = JSON.parse(localStorage.getItem('liked_movies'))
+    console.log(local['532639'])
         movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-img-container');
@@ -54,6 +58,11 @@ async function getTrendingMoviesPreview(){
         const apiImage = document.createElement('img')
         const movieBtn = document.createElement('button');
         movieBtn.classList.add('btnLike');
+        if (local[movie.id]){
+            movieBtn.classList.add('btnLiked');
+        } else {
+            movieBtn.classList.remove('btnliked');
+        }
         movieBtn.addEventListener('click', () => {
             movieBtn.classList.toggle('btnLiked');
             likeMovie(movie); 
@@ -249,3 +258,20 @@ async function searchMovies(query){
     })
 }
 
+function getLikedMovies(){
+    const likedMovies = likedMoviesList();
+    const moviesArray = Object.values(likedMovies)
+    const container = document.getElementById('liked');
+    container.innerHTML = '';
+    moviesArray.forEach((movie) => {
+        const movieBtn = document.createElement('button');
+        movieBtn.classList.add('btnLike');
+        const img = document.createElement('img');
+        img.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
+        container.appendChild(img);
+        img.onclick = function() {
+            getMovieDetails(movie.id, movie.poster_path, movie.title, movie.overview)
+        }
+    }) 
+}
+getLikedMovies()
